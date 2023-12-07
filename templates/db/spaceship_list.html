@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Spaceships</h1>
+  <ul>
+    {% for spaceship in spaceship_list %}
+      <li>
+        <p>
+          {{ spaceship.spaceship_name }}
+        </p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

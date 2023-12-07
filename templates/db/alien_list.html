@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Aliens</h1>
+  <ul>
+    {% for alien in alien_list %}
+      <li>
+        <p>
+          {{ alien.alien_name }}
+        </p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

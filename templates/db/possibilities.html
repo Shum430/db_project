@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row">
+
+    <div class="col-sm-6">
+      <h1>
+        Events:
+      </h1>
+      <ul>
+        <li>
+          <a href="{% url 'db:alien_robbing_human_form' %}">
+            <p>Alien is robbing human</p>
+          </a>
+
+        </li>
+        <li>
+          <a href="{% url 'db:human_escaping_ship_form' %}">
+            <p>Human escapes from ship</p>
+          </a>
+
+        </li>
+        <li>
+          <a href="{% url 'db:alien_transporting_human_form' %}">
+            <p>Alien is transporting human to another ship</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'db:aliens_making_experiment_form' %}">
+            <p>Group of aliens making experiments above  human</p>
+          </a>
+
+        </li>
+        <li>
+          <a href="{% url 'db:alien_making_tour_form' %}">
+            <p>Alien makes a tour for group of people</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'db:human_killing_alien_form' %}">
+            <p>Human is killing alien</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-sm-6">
+      <h1>
+        Queries:
+      </h1>
+      <ul>
+        <li>
+          <a href="{% url 'db:abduction_query_form' %}">
+            <p>For alien find N times robbed humans</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'db:spaceship_query_form' %}">
+            <p>Visited spaceships</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'db:robbing_results_form' %}">
+            <p>Killing</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'db:killed_results_form' %}">
+            <p>Killed</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'db:robbed_and_killed_results_form' %}">
+            <p>Rob and Killed</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'db:rob_n_people_results_form' %}">
+            <p>Rob n people</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'db:robbed_n_times_results_form' %}">
+            <p>Robbed n times</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'db:common_excursion_experiment_results_form' %}">
+            <p>Common excursion and experiment</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'db:ninth_task_results_form' %}">
+            <p>Ninth task </p>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+{% endblock %}

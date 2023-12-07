@@ -1,0 +1,36 @@
+# Python
+*.pyc
+*.pyo
+__pycache__/
+
+# Django
+*.log
+db.sqlite3
+
+# PyCharm
+.idea/
+
+# Environment virtualization
+venv/
+env/
+
+# Other
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyc
+*.pyo
+*.pyc
+*.pyo
+*.pyc
+*.pyo
+__pycache__/
+.Python
+*.db
+*.sqlite3
