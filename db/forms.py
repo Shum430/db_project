@@ -32,15 +32,16 @@ class AlienTransportForm(forms.Form):
 class AliensMakeExperimentForm(forms.Form):
     experiment_date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
     spaceship = forms.ModelChoiceField(queryset=Spaceship.objects.all())
-    aliens = forms.ModelMultipleChoiceField(queryset=Alien.objects.all())
+    alien = forms.ModelChoiceField(queryset=Alien.objects.all())
     human = forms.ModelChoiceField(queryset=Human.objects.all())
 
 
 class AlienMakesTourForm(forms.Form):
+    name = forms.CharField(max_length=255)
     tour_date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
     spaceship = forms.ModelChoiceField(queryset=Spaceship.objects.all())
     alien = forms.ModelChoiceField(queryset=Alien.objects.all())
-    humans = forms.ModelMultipleChoiceField(queryset=Human.objects.all())
+    human = forms.ModelChoiceField(queryset=Human.objects.all())
 
 
 class HumanKillsAlienForm(forms.Form):

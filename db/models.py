@@ -69,7 +69,7 @@ class Tour(models.Model):
     tour_date = models.DateField()
     spaceship = models.ForeignKey(Spaceship, on_delete=models.CASCADE)
     alien = models.ForeignKey(Alien, on_delete=models.CASCADE)
-    humans = models.ManyToManyField(Human)
+    human = models.ForeignKey(Human, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.tour_date} - {self.spaceship} - {self.alien}"

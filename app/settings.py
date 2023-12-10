@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-!msr_g6+dwnudtl5fjzsz2rqcwq+8c)_!b*mqh%kq%)7o671r@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'cornelius.db.elephantsql.com']
 
 # Application definition
 
@@ -47,6 +47,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# 'default': {
+#     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#     'NAME': 'ecleycsl',
+#     'USER': 'ecleycsl',
+#     'PASSWORD': 'jh-tO7zwpuptkRbE5ELKu1R5JOkr08_s',
+#     'HOST': 'cornelius.db.elephantsql.com',
+#     'PORT': '5432',
+# }
 
 ROOT_URLCONF = 'app.urls'
 
@@ -72,11 +81,19 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "posgres",  # Update the database name
+        "USER": "ecleycl",  # Update the username
+        "PASSWORD": "jh-tO7zwpuptkRbE5ELKu1R5JOkr08_s",  # Update the password
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
 }
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES["default"].update(db_from_env)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

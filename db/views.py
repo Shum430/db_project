@@ -9,7 +9,7 @@ from .models import (
     Escape,
     Experiment,
     Tour,
-    AlienKill, LinkingTour
+    AlienKill, LinkingTour, Transportation
 )
 from .forms import (
     AlienRobHumanForm,
@@ -96,19 +96,40 @@ def human_escaping_ship_view(request):
 
 
 def alien_transporting_human_view(request):
-    if request.method == "GET":
-        context = {
-            "form": AlienTransportForm()
-        }
-        return render(request, "db/alien_transporting_human_form.html", context=context)
-    elif request.method == "POST":
+    success_message = None
+
+    if request.method == 'POST':
+        # If the form is submitted
         form = AlienTransportForm(request.POST)
+
         if form.is_valid():
-            Escape.objects.create(**form.cleaned_data)
-        context = {
-            "form": form,
-        }
-        return render(request, "db/alien_transporting_human_form.html", context=context)
+            # Form is valid, create a new instance of the Transportation model
+            transportation_date = form.cleaned_data['transportation_date']
+            spaceship_from = form.cleaned_data['spaceship_from']
+            spaceship_to = form.cleaned_data['spaceship_to']
+            alien = form.cleaned_data['alien']
+            human = form.cleaned_data['human']
+
+            # Create a new instance of the Transportation model
+            transportation = Transportation.objects.create(
+                transportation_date=transportation_date,
+                spaceship_from=spaceship_from,
+                spaceship_to=spaceship_to,
+                alien=alien,
+                human=human
+            )
+
+            # Optionally, you can do additional processing here
+
+            # Set a success message
+            success_message = "Transportation successful!"
+
+    else:
+        # If it's a GET request, create a new form
+        form = AlienTransportForm()
+
+    # Render the template with the form and the success message
+    return render(request, 'db/alien_transporting_human_form.html', {'form': form, 'success_message': success_message})
 
 
 def aliens_making_experiment_view(request):
