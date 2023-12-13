@@ -30,6 +30,7 @@ class AlienTransportForm(forms.Form):
 
 
 class AliensMakeExperimentForm(forms.Form):
+    name = forms.CharField(max_length=255)
     experiment_date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
     spaceship = forms.ModelChoiceField(queryset=Spaceship.objects.all())
     alien = forms.ModelChoiceField(queryset=Alien.objects.all())

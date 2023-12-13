@@ -46,17 +46,32 @@ class AlienListView(generic.ListView):
     template_name = "db/alien_list.html"
     queryset = Alien.objects.order_by("id")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["num_aliens"] = Alien.objects.count()
+        return context
+
 
 class HumanListView(generic.ListView):
     model = Human
     template_name = "db/human_list.html"
     queryset = Human.objects.order_by("id")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["num_humans"] = Human.objects.count()
+        return context
+
 
 class SpaceshipListView(generic.ListView):
     model = Spaceship
     template_name = "db/spaceship_list.html"
     queryset = Spaceship.objects.order_by("id")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["num_ships"] = Spaceship.objects.count()
+        return context
 
 
 def possibilities(request):
@@ -88,7 +103,20 @@ def human_escaping_ship_view(request):
     elif request.method == "POST":
         form = HumanEscapeForm(request.POST)
         if form.is_valid():
-            Escape.objects.create(**form.cleaned_data)
+            # Get the human and spaceship objects based on the form data
+            human_name = form.cleaned_data['human']
+            spaceship_name = form.cleaned_data['spaceship']
+
+            # Check if the specified human exists on the specified spaceship
+            human_on_spaceship = Human.objects.filter(human_name=human_name, abduction__spaceship__spaceship_name=spaceship_name).exists()
+
+            if human_on_spaceship:
+                # Human is on the spaceship, create the Escape object
+                Escape.objects.create(**form.cleaned_data)
+            else:
+                # Human is not on the specified spaceship, handle the error
+                form.add_error('human', 'Selected human is not on the specified spaceship.')
+
         context = {
             "form": form,
         }
