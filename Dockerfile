@@ -14,4 +14,5 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Run the application
 #CMD ["gunicorn", "--bind", "0.0.0.0:8000", "db_project.wsgi:application"]
-CMD ["python", "manage.py", "runserver"]
+#CMD ["python", "manage.py", "runserver"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app.wsgi:application"]
