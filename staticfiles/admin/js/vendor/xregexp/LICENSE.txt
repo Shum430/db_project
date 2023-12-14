@@ -1,6 +1,10 @@
 The MIT License
 
+<<<<<<< HEAD
 Copyright (c) 2007-present Steven Levithan <http://xregexp.com/>
+=======
+Copyright (c) 2007-2017 Steven Levithan <http://xregexp.com/>
+>>>>>>> b590c6a7da450aae4209e1f95a90cb2a8a96e043
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

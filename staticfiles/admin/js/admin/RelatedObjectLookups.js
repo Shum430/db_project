@@ -26,11 +26,21 @@
     }
 
     function addPopupIndex(name) {
+<<<<<<< HEAD
         return name + "__" + (popupIndex + 1);
     }
 
     function removePopupIndex(name) {
         return name.replace(new RegExp("__" + (popupIndex + 1) + "$"), '');
+=======
+        name = name + "__" + (popupIndex + 1);
+        return name;
+    }
+
+    function removePopupIndex(name) {
+        name = name.replace(new RegExp("__" + (popupIndex + 1) + "$"), '');
+        return name;
+>>>>>>> b590c6a7da450aae4209e1f95a90cb2a8a96e043
     }
 
     function showAdminPopup(triggeringLink, name_regexp, add_popup) {
@@ -79,11 +89,17 @@
             siblings.each(function() {
                 const elm = $(this);
                 elm.attr('href', elm.attr('data-href-template').replace('__fk__', value));
+<<<<<<< HEAD
                 elm.removeAttr('aria-disabled');
             });
         } else {
             siblings.removeAttr('href');
             siblings.attr('aria-disabled', true);
+=======
+            });
+        } else {
+            siblings.removeAttr('href');
+>>>>>>> b590c6a7da450aae4209e1f95a90cb2a8a96e043
         }
     }
 
@@ -96,8 +112,12 @@
         // Extract the model from the popup url '.../<model>/add/' or
         // '.../<model>/<id>/change/' depending the action (add or change).
         const modelName = path.split('/')[path.split('/').length - (objId ? 4 : 3)];
+<<<<<<< HEAD
         // Exclude autocomplete selects.
         const selectsRelated = document.querySelectorAll(`[data-model-ref="${modelName}"] select:not(.admin-autocomplete)`);
+=======
+        const selectsRelated = document.querySelectorAll(`[data-model-ref="${modelName}"] select`);
+>>>>>>> b590c6a7da450aae4209e1f95a90cb2a8a96e043
 
         selectsRelated.forEach(function(select) {
             if (currentSelect === select) {

@@ -69,8 +69,12 @@
         margin-right: 15px;
     }
 
+<<<<<<< HEAD
     [dir="rtl"] .aligned ul,
     [dir="rtl"] form .aligned ul.errorlist {
+=======
+    [dir="rtl"] .aligned ul {
+>>>>>>> b590c6a7da450aae4209e1f95a90cb2a8a96e043
         margin-right: 0;
     }
 
@@ -78,7 +82,10 @@
         margin-left: 0;
         margin-right: 0;
     }
+<<<<<<< HEAD
     [dir="rtl"] .aligned .vCheckboxLabel {
         padding: 1px 5px 0 0;
     }
+=======
+>>>>>>> b590c6a7da450aae4209e1f95a90cb2a8a96e043
 }

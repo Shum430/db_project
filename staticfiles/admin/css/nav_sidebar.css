@@ -59,6 +59,7 @@
     content: '\00AB';
 }
 
+<<<<<<< HEAD
 .main > #nav-sidebar {
     visibility: hidden;
 }
@@ -66,6 +67,10 @@
 .main.shifted > #nav-sidebar {
     margin-left: 0;
     visibility: visible;
+=======
+.main.shifted > #nav-sidebar {
+    margin-left: 0;
+>>>>>>> b590c6a7da450aae4209e1f95a90cb2a8a96e043
 }
 
 [dir="rtl"] .main.shifted > #nav-sidebar {
@@ -102,12 +107,15 @@
     background: var(--selected-row);
 }
 
+<<<<<<< HEAD
 @media (forced-colors: active) {
     #nav-sidebar .current-model {
         background-color: SelectedItem;
     }
 }
 
+=======
+>>>>>>> b590c6a7da450aae4209e1f95a90cb2a8a96e043
 .main > #nav-sidebar + .content {
     max-width: calc(100% - 23px);
 }

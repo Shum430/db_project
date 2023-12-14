@@ -1,7 +1,10 @@
 /* DASHBOARD */
+<<<<<<< HEAD
 .dashboard td, .dashboard th {
     word-break: break-word;
 }
+=======
+>>>>>>> b590c6a7da450aae4209e1f95a90cb2a8a96e043
 
 .dashboard .module table th {
     width: 100%;

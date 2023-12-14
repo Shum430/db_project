@@ -36,6 +36,7 @@ depends on core.js for utility functions like removeChildren or quickElement
             pgettext('abbrev. month December', 'Dec')
         ],
         daysOfWeek: [
+<<<<<<< HEAD
             gettext('Sunday'),
             gettext('Monday'),
             gettext('Tuesday'),
@@ -54,6 +55,8 @@ depends on core.js for utility functions like removeChildren or quickElement
             pgettext('abbrev. day Saturday', 'Sat')
         ],
         daysOfWeekInitial: [
+=======
+>>>>>>> b590c6a7da450aae4209e1f95a90cb2a8a96e043
             pgettext('one letter Sunday', 'S'),
             pgettext('one letter Monday', 'M'),
             pgettext('one letter Tuesday', 'T'),
@@ -116,7 +119,11 @@ depends on core.js for utility functions like removeChildren or quickElement
             // Draw days-of-week header
             let tableRow = quickElement('tr', tableBody);
             for (let i = 0; i < 7; i++) {
+<<<<<<< HEAD
                 quickElement('th', tableRow, CalendarNamespace.daysOfWeekInitial[(i + CalendarNamespace.firstDayOfWeek) % 7]);
+=======
+                quickElement('th', tableRow, CalendarNamespace.daysOfWeek[(i + CalendarNamespace.firstDayOfWeek) % 7]);
+>>>>>>> b590c6a7da450aae4209e1f95a90cb2a8a96e043
             }
 
             const startingPos = new Date(year, month - 1, 1 - CalendarNamespace.firstDayOfWeek).getDay();

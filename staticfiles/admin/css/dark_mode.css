@@ -31,6 +31,7 @@
       --close-button-hover-bg: #666666;
     }
   }
+<<<<<<< HEAD
 
 
 html[data-theme="dark"] {
@@ -122,3 +123,5 @@ html[data-theme="dark"] .theme-toggle svg.theme-icon-when-dark {
 html[data-theme="light"] .theme-toggle svg.theme-icon-when-light {
     display: block;
 }
+=======
+>>>>>>> b590c6a7da450aae4209e1f95a90cb2a8a96e043

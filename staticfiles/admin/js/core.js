@@ -85,6 +85,7 @@ function findPosY(obj) {
         return (this.getSeconds() < 10) ? '0' + this.getSeconds() : this.getSeconds();
     };
 
+<<<<<<< HEAD
     Date.prototype.getAbbrevDayName = function() {
         return typeof window.CalendarNamespace === "undefined"
             ? '0' + this.getDay()
@@ -97,6 +98,8 @@ function findPosY(obj) {
             : window.CalendarNamespace.daysOfWeek[this.getDay()];
     };
 
+=======
+>>>>>>> b590c6a7da450aae4209e1f95a90cb2a8a96e043
     Date.prototype.getAbbrevMonthName = function() {
         return typeof window.CalendarNamespace === "undefined"
             ? this.getTwoDigitMonth()
@@ -111,8 +114,11 @@ function findPosY(obj) {
 
     Date.prototype.strftime = function(format) {
         const fields = {
+<<<<<<< HEAD
             a: this.getAbbrevDayName(),
             A: this.getFullDayName(),
+=======
+>>>>>>> b590c6a7da450aae4209e1f95a90cb2a8a96e043
             b: this.getAbbrevMonthName(),
             B: this.getFullMonthName(),
             c: this.toString(),
@@ -133,11 +139,19 @@ function findPosY(obj) {
         let result = '', i = 0;
         while (i < format.length) {
             if (format.charAt(i) === '%') {
+<<<<<<< HEAD
                 result += fields[format.charAt(i + 1)];
                 ++i;
             }
             else {
                 result += format.charAt(i);
+=======
+                result = result + fields[format.charAt(i + 1)];
+                ++i;
+            }
+            else {
+                result = result + format.charAt(i);
+>>>>>>> b590c6a7da450aae4209e1f95a90cb2a8a96e043
             }
             ++i;
         }
