@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <h1>Tours</h1>
+  <h3>Count: {{ tour_list.count }}</h3>
+  <br>
+  {% for tour in tour_list %}
+    <div class="row">
+      <div class="col-sm-3">
+        {{ tour.spaceship }}
+      </div>
+      <div class="col-sm-3">
+        {{ tour.name }}
+      </div>
+      <div class="col-sm-2">
+        {{ tour.human }}
+      </div>
+      <div class="col-sm-2">
+        {{ tour.alien}}
+      </div>
+      <div class="col-sm-2">
+        {{ tour.tour_date }}
+      </div>
+
+    </div>
+    <br>
+  {% endfor %}
+{% endblock %}

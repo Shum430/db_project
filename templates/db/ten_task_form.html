@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h3>для людини H та кожного експерименту, у якому вона брала участь, знайти скiльки разiв
+за вказаний перiод (з дати F по дату T) експеримент над нею проводили щонайменше N
+прибульцiв;</h3>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+  </form>
+
+  {% if experiments_count %}
+    <h2>Results:</h2>
+    <ul>
+      {% for experiment in experiments_count %}
+        <li>Alien count{{ experiment.alien_count }} </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Spaceships where human was</h1>
+  <h3>Вивести кораблi у порядку спадання сумарної кiлькостi еспериментiв, що були проведенi на
+кораблi за участi даного прибульця A протягом вказаного перiоду (з дати F по дату T);</h3>
   <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}

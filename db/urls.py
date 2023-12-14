@@ -14,7 +14,9 @@ from db.views import (
     human_killing_alien_view,
     abduction_query_view, spaceship_query_view, robbing_alien_query_view, killed_alien_query_view,
     robbed_and_killed_query_view,
-    rob_n_people_query_view, robbed_n_times_query_view, common_excursion_experiment_query_view, ninth_task_query_view
+    rob_n_people_query_view, robbed_n_times_query_view, common_excursion_experiment_query_view,
+    AbductionListView, twelve_task_query_view, eleven_task_query_view, ten_task_query_view, ninth_task_query_view,
+    ExperimentListView, TourListView
 )
 
 
@@ -25,6 +27,9 @@ urlpatterns = [
     path("aliens/", AlienListView.as_view(), name="alien-list"),
     path("spaceships/", SpaceshipListView.as_view(), name="spaceship-list"),
     path("possibilities/", possibilities, name="events-and-queries"),
+    path("abductions/", AbductionListView.as_view(), name="abduction-list"),
+    path("experiments/", ExperimentListView.as_view(), name="experiment-list"),
+    path("tours/", TourListView.as_view(), name="tour-list"),
     path("possibilities/alien_robbing_human/", alien_robbing_human_view, name="alien_robbing_human_form"),
     path("possibilities/human_escaping_ship/", human_escaping_ship_view, name="human_escaping_ship_form"),
     path("possibilities/alien_transporting_human/", alien_transporting_human_view,
@@ -49,6 +54,21 @@ urlpatterns = [
         ninth_task_query_view,
         name="ninth_task_results_form"
     ),
+    path(
+        "possibilities/ten_task_results",
+        ten_task_query_view,
+        name="ten_task_results_form"
+    ),
+    path(
+        "possibilities/eleven_task_results",
+        eleven_task_query_view,
+        name="eleven_task_results_form"
+    ),
+    path(
+        "possibilities/twelve_task_results",
+        twelve_task_query_view,
+        name="twelve_task_results_form"
+    )
 ]
 
 

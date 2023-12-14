@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 style="text-align: center">Abductions list </h1>
+  <h3>Count: {{ abduction_list.count }}</h3>
+  <br>
+	{% for abduction in abduction_list %}
+    <div class="row">
+      <div class="col-sm-3">
+        {{ abduction.human }}
+      </div>
+      <div class="col-sm-3">
+        {{ abduction.alien }}
+      </div>
+      <div class="col-sm-3">
+        {{ abduction.abduction_date }}
+      </div>
+      <div class="col-sm-3">
+        {{ abduction.spaceship }}
+      </div>
+
+    </div>
+    <br>
+  {% endfor %}
+{% endblock %}

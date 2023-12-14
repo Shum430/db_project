@@ -9,15 +9,15 @@
   </form>
 
   {% if common_events %}
-  <h2>Results:</h2>
-  <ul>
-    {% for event in common_events %}
-      {% if event.tour %}
-        <li>{{ event.tour.name }} - Tour</li>
-      {% elif event.experiment %}
-        <li>{{ event.experiment.name }} - Experiment</li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-{% endif %}
+    <h2>Results:</h2>
+    <ul>
+      {% for event in common_events %}
+        {% if event.tour %}
+          <li>{{ event.tour.name }} - Tour</li>
+        {% elif event.experiment %}
+          <li>{{ event.experiment.name }} - Experiment</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endif %}
 {% endblock %}

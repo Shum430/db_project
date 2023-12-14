@@ -1,4 +1,5 @@
 from django.db.models import Count
+from django.db.models.functions import ExtractMonth
 from django.views import generic
 from django.shortcuts import render
 from .models import (
@@ -23,7 +24,8 @@ from .forms import (
     RobbingAlienSearchForm,
     KilledAlienSearchForm,
     KillRobbedSearchForm,
-    RobNPeopleSearchForm, RobbedNTimesSearchForm, CommonExcursionExperimentSearchForm, NinthTaskSearchForm,
+    RobNPeopleSearchForm, RobbedNTimesSearchForm, CommonExcursionExperimentSearchForm, ElevenTaskSearchForm,
+    TwelveTaskSearchForm, TenTaskSearchForm, NineTaskSearchForm,
 )
 
 
@@ -72,6 +74,22 @@ class SpaceshipListView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context["num_ships"] = Spaceship.objects.count()
         return context
+
+
+class AbductionListView(generic.ListView):
+    model = Abduction
+    template_name = "db/abduction_list.html"
+
+
+class ExperimentListView(generic.ListView):
+    model = Experiment
+    template_name = "db/experiment_list.html"
+
+
+class TourListView(generic.ListView):
+    model = Tour
+    template_name = "db/tour_list.html"
+
 
 
 def possibilities(request):
@@ -369,8 +387,6 @@ def robbed_n_times_query_view(request):
 
 
 def common_excursion_experiment_query_view(request):
-    common_events = []
-
     if request.method == 'POST':
         form = CommonExcursionExperimentSearchForm(request.POST)
         if form.is_valid():
@@ -379,51 +395,155 @@ def common_excursion_experiment_query_view(request):
             start_date = form.cleaned_data['start_date']
             end_date = form.cleaned_data['end_date']
 
-            # Find all common excursions and experiments for the specified alien and human
-            tour_events = Tour.objects.filter(
+            # Query to find common tours
+            common_tours = Tour.objects.filter(
                 alien=alien,
-                tour_date__range=(start_date, end_date),
-                humans=human
+                human=human,
+                tour_date__range=(start_date, end_date)
             )
 
-            experiment_events = Experiment.objects.filter(
+            # Query to find common experiments
+            common_experiments = Experiment.objects.filter(
                 alien=alien,
-                experiment_date__range=(start_date, end_date),
+                human=human,
+                experiment_date__range=(start_date, end_date)
+            )
+
+            # Query to find common linking tours
+            common_linking_tours = LinkingTour.objects.filter(
+                tour__in=common_tours,
                 human=human
             )
 
-            # Combine results into a single list
-            common_events = list(tour_events) + list(experiment_events)
+            context = {
+                'form': form,
+                'common_tours': common_tours,
+                'common_experiments': common_experiments,
+                'common_linking_tours': common_linking_tours,
+            }
+
+            return render(request, 'db/common_excursion_experiment_form.html', context)
 
     else:
         form = CommonExcursionExperimentSearchForm()
 
-    context = {"form": form, "common_events": common_events}
-    return render(request, 'db/common_excursion_experiment_form.html', context=context)
-
+    return render(request, 'db/common_excursion_experiment_form.html', {'form': form})
 
 def ninth_task_query_view(request):
-    result = None
-
     if request.method == 'POST':
-        form = NinthTaskSearchForm(request.POST)
+        form = NineTaskSearchForm(request.POST)
+        if form.is_valid():
+            alien = form.cleaned_data['alien']
+            start_date = form.cleaned_data['start_date']
+            end_date = form.cleaned_data['end_date']
+            min_humans = form.cleaned_data['min_humans']
+
+            # Query to get the number of tours conducted by the alien with at least N humans
+            tours_count = LinkingTour.objects.filter(
+                tour__alien=alien,
+                tour__tour_date__range=(start_date, end_date),
+                tour__human__experiment__experiment_date__range=(start_date, end_date)
+            ).values('tour__id').annotate(
+                human_count=Count('human', distinct=True)
+            ).filter(human_count__gte=min_humans)
+
+            context = {
+                'form': form,
+                'tours_count': tours_count,
+            }
+
+            return render(request, 'db/ninth_task_form.html', context)
+
+    else:
+        form = NineTaskSearchForm()
+
+    return render(request, 'db/ninth_task_form.html', {'form': form})
+
+
+def ten_task_query_view(request):
+    if request.method == 'POST':
+        form = TenTaskSearchForm(request.POST)
+        if form.is_valid():
+            human = form.cleaned_data['human']
+            start_date = form.cleaned_data['start_date']
+            end_date = form.cleaned_data['end_date']
+            min_aliens = form.cleaned_data['min_alians']
+
+            # Query to get the number of experiments for each human within the specified date range
+            experiments_count = Experiment.objects.filter(
+                human=human,
+                experiment_date__range=(start_date, end_date),
+                alien__experiment__experiment_date__range=(start_date, end_date)
+            ).values('id').annotate(
+                alien_count=Count('alien', distinct=True)
+            ).filter(alien_count__gte=min_aliens)
+
+            context = {
+                'form': form,
+                'experiments_count': experiments_count,
+            }
+
+            return render(request, 'db/ten_task_form.html', context)
+
+    else:
+        form = TenTaskSearchForm()
+
+    return render(request, 'db/ten_task_form.html', {'form': form})
+
+
+def eleven_task_query_view(request):
+    if request.method == 'POST':
+        form = ElevenTaskSearchForm(request.POST)
         if form.is_valid():
             alien = form.cleaned_data['alien']
             start_date = form.cleaned_data['start_date']
             end_date = form.cleaned_data['end_date']
             min_abduction = form.cleaned_data['min_abduction']
 
-            # Query to find the number of tours for the given alien and meeting the criteria
-            result = LinkingTour.objects.filter(
-                tour__alien=alien,
-                tour__tour_date__range=(start_date, end_date)
-            ).annotate(num_humans=Count('tour__humans')).filter(num_humans__gte=min_abduction).count()
+            # Query to get the total number of abductions per month
+            abductions_by_month = Abduction.objects.filter(
+                alien=alien,
+                abduction_date__range=(start_date, end_date)
+            ).annotate(month=ExtractMonth('abduction_date')).values('month').annotate(
+                total_abductions=Count('id')
+            ).filter(total_abductions__gte=min_abduction)
+
+            context = {
+                'form': form,
+                'abductions_by_month': abductions_by_month,
+            }
+
+            return render(request, 'db/eleven_task_form.html', context)
 
     else:
-        form = NinthTaskSearchForm()
+        form = ElevenTaskSearchForm()
 
-    context = {"form": form, "result": result}
-    return render(request, 'db/ninth_task_form.html', context=context)
+    return render(request, 'db/eleven_task_form.html', {'form': form})
 
 
+def twelve_task_query_view(request):
+    if request.method == 'POST':
+        form = TwelveTaskSearchForm(request.POST)
+        if form.is_valid():
+            alien = form.cleaned_data['alien']
+            start_date = form.cleaned_data['start_date']
+            end_date = form.cleaned_data['end_date']
+
+            # Query to get Spaceships ordered by the descending sum of experiments
+            spaceships = Spaceship.objects.filter(
+                experiment__alien=alien,
+                experiment__experiment_date__range=(start_date, end_date)
+            ).annotate(experiment_count=Count('experiment')).order_by('-experiment_count')
+
+            context = {
+                'form': form,
+                'spaceships': spaceships,
+            }
+
+            return render(request, 'db/twelve_task_form.html', context)
+
+    else:
+        form = TwelveTaskSearchForm()
+
+    return render(request, 'db/twelve_task_form.html', {'form': form})
 

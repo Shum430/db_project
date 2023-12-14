@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Experiments</h1>
+  <h3>Count: {{ experiment_list.count }}</h3>
+  <br>
+  {% for experiment in experiment_list %}
+    <div class="row">
+      <div class="col-sm-3">
+        {{ experiment.spaceship }}
+      </div>
+      <div class="col-sm-3">
+        {{ experiment.alien }}
+      </div>
+      <div class="col-sm-2">
+        {{ experiment.human }}
+      </div>
+      <div class="col-sm-2">
+        {{ experiment.name }}
+      </div>
+      <div class="col-sm-2">
+        {{ experiment.experiment_date }}
+      </div>
+
+    </div>
+    <br>
+  {% endfor %}
+{% endblock %}

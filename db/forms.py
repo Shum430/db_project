@@ -101,13 +101,30 @@ class CommonExcursionExperimentSearchForm(forms.Form):
     end_date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
 
 
-class NinthTaskSearchForm(forms.Form):
+class NineTaskSearchForm(forms.Form):
+    alien = forms.ModelChoiceField(queryset=Alien.objects.all(), label='Alien')
+    start_date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+    end_date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+    min_humans = forms.IntegerField(label='Minimum abduction', min_value=1)
+
+
+class TenTaskSearchForm(forms.Form):
+    human = forms.ModelChoiceField(queryset=Human.objects.all(), label='Human')
+    start_date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+    end_date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+    min_alians = forms.IntegerField(label='Minimum abduction', min_value=1)
+
+
+class ElevenTaskSearchForm(forms.Form):
     alien = forms.ModelChoiceField(queryset=Alien.objects.all(), label='Alien')
     start_date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
     end_date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
     min_abduction = forms.IntegerField(label='Minimum abduction', min_value=1)
 
 
-
+class TwelveTaskSearchForm(forms.Form):
+    alien = forms.ModelChoiceField(queryset=Alien.objects.all(), label='Alien')
+    start_date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+    end_date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
 
 
